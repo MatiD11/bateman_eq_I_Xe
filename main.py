@@ -3,9 +3,9 @@ from estimate_ex_time import measure_execution_time
 from bateman_eq import calc_initial_conditions, bateman_equations
 from runge_kutta import runge_kutta
 from matrix_method import matrix_method
-from analytical_sol import calculate_errors, Xe_flux
+from analytical_sol import calculate_errors, Xe_population
 from parameters import par
-from plot_results import plot_flux, plot_rho, plot_err, plot_rho_matrix_3d
+from plot_results import plot_population, plot_rho, plot_err, plot_rho_matrix_3d
 from bateman_eq import calculate_rho
 
 def compute_solutions(perc, time_range, dt, compute_matrix_only=False):
@@ -26,19 +26,19 @@ def compute_solutions(perc, time_range, dt, compute_matrix_only=False):
     results_matrix = matrix_method(initial_conditions, time_range[0], time_range[1], dt)  # Matrix method results
     
     if (10 * perc % 2 == 0 and perc < 1.2):
-        plot_flux(results_matrix, f"matrix_{perc}")
+        plot_population(results_matrix, f"matrix_{perc}")
     
     rho_matrix = [(t, calculate_rho(Xe)) for t, (_, Xe) in results_matrix]  # Calculate rho values for matrix method
     
     if not compute_matrix_only:
         results_runge_kutta = runge_kutta(bateman_equations, initial_conditions, time_range[0], time_range[1], dt) # Runge-Kutta method results
-        plot_flux(results_runge_kutta, f"runge_kutta_{perc}")
+        plot_population(results_runge_kutta, f"runge_kutta_{perc}")
         
         rho_runge_kutta = [(t, calculate_rho(Xe)) for t, (_, Xe) in results_runge_kutta] # Calculate rho values for Runge-Kutta method
         rho_rk4 = [rho for _, rho in rho_runge_kutta]
 
         times = [t for t, _ in rho_runge_kutta]
-        Xe_analytic = [Xe_flux(t) for t in times]
+        Xe_analytic = [Xe_population(t) for t in times]
         rho_analytic = [calculate_rho(Xe) for Xe in Xe_analytic]
 
         # Calculate errors between numerical and analytical solutions
@@ -84,7 +84,7 @@ def process(time_range, dt):
 
 def plot_all_results(rho_runge_kutta_all, rho_matrix_all, rho_runge_kutta_all_err, rho_matrix_all_err, rho_matrix_3D_all):
     """
-    Plots all results, including fluxes, rho values, errors, and xenon transient surface.
+    Plots all results, including populations, rho values, errors, and xenon transient surface.
 
     Args:
         rho_runge_kutta_all: Results from the Runge-Kutta method.

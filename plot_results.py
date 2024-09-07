@@ -1,17 +1,16 @@
 import matplotlib.pyplot as plt
-import matplotlib.ticker as mticker
 import numpy as np
 from parameters import par
 
-def plot_flux(results, filename):
+def plot_population(results, filename):
     """
-    Plots the flux of Iodine and Xenon over time.
+    Plots the population of Iodine and Xenon over time.
 
     Args:
         results: A list of tuples where each tuple contains time and state values.
         filename: The name of the file where the plot will be saved.
     """
-    # Extract time and flux values for Iodine and Xenon
+    # Extract time and concentration values for Iodine and Xenon
     t = [t/3600 for t, _ in results]  #time in hours
     I_t = [y[0] for _, y in results]  
     Xe_t = [y[1] for _, y in results]  
@@ -21,14 +20,14 @@ def plot_flux(results, filename):
     plt.plot(t, Xe_t, marker='o', linestyle='-', markersize=5, color='darkblue', markeredgecolor='darkblue', markeredgewidth=0.8, label='Xenon')
 
     plt.xlabel('Time (h)', fontsize=14)
-    plt.ylabel("Flux", fontsize=14) 
+    plt.ylabel("Population", fontsize=14) 
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.xticks(fontsize=12)
     plt.yticks(fontsize=12)
-    plt.title('I and Xe flux vs Time', fontsize=16, fontweight='bold') 
+    plt.title('I and Xe populations vs Time', fontsize=16, fontweight='bold') 
     plt.tight_layout()
     plt.legend()
-    plt.savefig(f"flux/{filename}.png")
+    plt.savefig(f"populations/{filename}.png")
     plt.close()
 
 def plot_rho(rho_results, filename):
@@ -49,7 +48,7 @@ def plot_rho(rho_results, filename):
     plt.xlabel('Time (h)', fontsize=14)
     plt.ylabel(r'$\rho$ (pcm)', fontsize=14)  
     plt.grid(True, linestyle='--', alpha=0.7)
-    plt.title('Poisoning vs Time for Different Flux', fontsize=16)
+    plt.title('Poisoning vs Time for Different Neutron Flux', fontsize=16)
     plt.legend(fontsize=12)
     plt.tight_layout() 
     plt.savefig(f"output/{filename}.png", dpi=300)  

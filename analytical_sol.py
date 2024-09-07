@@ -1,7 +1,7 @@
 from parameters import par
 import numpy as np
 
-def Xe_flux(t):
+def Xe_population(t):
     """
     Compute the analytical solution for the xenon concentration
 
