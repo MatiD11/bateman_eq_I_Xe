@@ -2,16 +2,16 @@
 
 ## Overview
 
-This project implements two different numerical methods for solving the Bateman equations for Xe-135 and I-135, to calculate the Xe poisoning after the reactor shutdown. The methods implemented are the fourth-order Runge-Kutta (RK4) and matrix exponential. The project also features visualizations of the results, including I and Xe populations and poisoning.In the project it is also calculated the relative error of the two numerical methods with respect to analytical solution. The matrix method have more accurate solution with respect to the analytical solution, so for this method it is also produced the 3D plot of the xenon poisoning surface at different thermal neutron flux levels. The project follows what proposed in [this paper](#references).
+This project implements two different numerical methods for solving the Bateman equations for Xe-135 and I-135, to calculate the Xe poisoning after the reactor shutdown. The methods implemented are the fourth-order Runge-Kutta (RK4) and matrix exponential. The project also features visualizations of the results, including I and Xe populations and poisoning. In the project it is also calculated the relative error on the poisoning of the two numerical methods with respect to analytical solution. The matrix method have more accurate solution with respect to the analytical solution, so for this method it is also produced the 3D plot of the xenon poisoning surface at different thermal neutron flux levels. The project follows what proposed in [this paper](#references).
 
 ## Project Structure
 
 - **[`parameters.py`](./parameters.py)**: Defines the parameters used throughout the calculations. All the parameters are taken from [1](#references).
-- **[`bateman_eq.py`](./bateman_eq.py)**: Defines the Bateman equations, the function to calculate initial conditions, and the function to calculate reactor poisoning.
-- **[`analytical_sol.py`](./analytical_sol.py)**: Contains analytical solutions of the Bateman equations and calculates the error between analytical and numerical solutions.
+- **[`bateman_eq.py`](./bateman_eq.py)**: Defines the Bateman equations, the function to calculate initial conditions, and the function to calculate reactor poisoning. Contains also the analytical solution of the Bateman equation for Xe and calculates the error on the poisoning between analytical and numerical solution.
 - **[`runge_kutta.py`](./runge_kutta.py)**: Implements the Runge-Kutta method for solving differential equations.
 - **[`matrix_method.py`](./matrix_method.py)**: Implements the matrix exponential method for solving differential equations.
 - **[`plot_results.py`](./plot_results.py)**: Contains functions for plotting results, including I and Xe populations, reactor poisoning, errors with respect to the analytical solution, and a 3D plot of the xenon transient surface.
+- **[`compute_solutions.py`](./compute_solutions.py)**: Compute solutions of the Bateman equations using both matrix method and Runge-Kutta method, for different neutron flux values and calculates errors.
 - **[`estimate_ex_time.py`](./estimate_ex_time.py)**: Contains a function that measures the execution time of a method.
 - **[`populations/`](./populations)**: Directory where I and Xe population plots are saved.
 - **[`output/`](./output)**: Directory where other plots are saved.

@@ -1,6 +1,6 @@
 MAIN_FILE = main.py
 
-DEPS = estimate_ex_time.py bateman_eq.py runge_kutta.py matrix_method.py analytical_sol.py plot_results.py
+DEPS = estimate_ex_time.py bateman_eq.py runge_kutta.py matrix_method.py compute_solutions.py plot_results.py
 
 PYTHON = python3
 
@@ -25,7 +25,6 @@ $(OUTPUT_DIR):
 	mkdir -p $(OUTPUT_DIR)
 
 help:
-	help:
 	@echo "Available commands in the Makefile:"
 	@echo "  make          - Runs the main script with custom parameters using 'ARGS'"
 	@echo "  make run      - Runs the main script with custom parameters using 'ARGS'"

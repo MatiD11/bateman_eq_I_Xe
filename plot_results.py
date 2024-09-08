@@ -115,3 +115,20 @@ def plot_rho_matrix_3d(rho_matrix_3D_all, filename):
     plt.savefig(f"output/{filename}.png", dpi=300)
     plt.show()
     plt.close()
+
+def plot_all_results(rho_runge_kutta_all, rho_matrix_all, rho_runge_kutta_all_err, rho_matrix_all_err, rho_matrix_3D_all):
+    """
+    Plots all results, including populations, rho values, errors, and xenon transient surface.
+
+    Args:
+        rho_runge_kutta_all: Results from the Runge-Kutta method.
+        rho_matrix_all: Results from the matrix method.
+        rho_runge_kutta_all_err: Errors for the Runge-Kutta method.
+        rho_matrix_all_err: Errors for the matrix method.
+        rho_matrix_3D_all: 3D plot of the xenon transient surface.
+    """
+    plot_rho(rho_runge_kutta_all, "rho_runge_kutta")
+    plot_rho(rho_matrix_all, "rho_matrix")
+    plot_err(rho_runge_kutta_all, rho_runge_kutta_all_err, "rho_runge_kutta_err")
+    plot_err(rho_matrix_all, rho_matrix_all_err, "rho_matrix_err")
+    plot_rho_matrix_3d(rho_matrix_3D_all, "xe_transient_surface")
