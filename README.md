@@ -66,13 +66,18 @@ To run the code, you can use the provided `Makefile`. Below are the commands ava
    make run
    ```
 -To run the main script selecting manually the parameters of the simulation, use the following command:
-```bash
+   ```bash
    make run ARGS='--time-range <start> <end> --dt <value>'
    ```
 -To measure the execution time of the two numerical methods, use the `make performance` command:
 
-```bash
+   ```bash
    make performance
+   ```
+-To see the available commands:
+
+   ```bash
+   make help
    ```
 
 ## References
