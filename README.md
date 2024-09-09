@@ -1,39 +1,26 @@
-# Bateman Equation Solver for Xe Poisoning
+# Bateman Equations Solver for Xe Poisoning
 
 ## Overview
 
-This project implements two different numerical methods for solving the Bateman equations for Xe-135 and I-135, to calculate the Xe poisoning after the reactor shutdown. The methods implemented are the fourth-order Runge-Kutta (RK4) and matrix exponential. The results of the project, including iodine and xenon populations as well as poisoning effects, are visualized through various plots. Additionally, the relative error in the poisoning values for both numerical methods is calculated with respect to the analytical solution. The matrix method provides a more accurate solution compared to the analytical one, and for this method, a 3D plot of the xenon poisoning surface at different thermal neutron flux levels is also produced.The project follows what proposed in [this paper](#references).
-
-## Project Structure
-
-- **[`parameters.py`](./parameters.py)**: Defines the parameters used throughout the calculations. All the parameters are taken from [1](#references).
-- **[`bateman_eq.py`](./bateman_eq.py)**: Defines the Bateman equations, the function to calculate initial conditions, and the function to calculate reactor poisoning $\rho$ . Contains also the analytical solution of the Bateman equation for Xe and calculates the error on the poisoning between analytical and numerical solution.
-- **[`runge_kutta.py`](./runge_kutta.py)**: Implements the fourth-order Runge-Kutta method for solving differential equations.
-- **[`matrix_method.py`](./matrix_method.py)**: Implements the matrix exponential method for solving differential equations.
-- **[`plot_results.py`](./plot_results.py)**: Contains functions for plotting results, including I and Xe populations, reactor poisoning, errors with respect to the analytical solution, and a 3D plot of the xenon transient surface.
-- **[`compute_solutions.py`](./compute_solutions.py)**: Compute solutions of the Bateman equations using both matrix method and Runge-Kutta method, for different neutron flux values and calculates the errors.
-- **[`estimate_ex_time.py`](./estimate_ex_time.py)**: Contains a function that measures the execution time of a method.
-- **[`populations/`](./populations)**: Directory where I and Xe population plots are saved.
-- **[`output/`](./output)**: Directory where all the other plots are saved.
-
+This project implements two different numerical methods for solving the Bateman equations for Xe-135 and I-135, and calculate the Xenon poisoning after the reactor shutdown. The methods implemented are the fourth-order Runge-Kutta (RK4) and matrix exponential. The results of the project, including Iodine and Xenon populations as well as poisoning effects, are visualized through various plots. Additionally, the relative error in the poisoning values for both numerical methods is calculated with respect to the analytical solution. The matrix method provides a more accurate solution compared to the analytical one, and for this method, a 3D plot of the xenon poisoning surface at different thermal neutron flux levels is also produced. The project follows what proposed in [this paper](#references).
 
 ## Bateman Equations
 
-The Bateman equations describe the time evolution of radioactive isotopes in a decay chain. The differential equations taken into account for I and Xe population in this project are:
+The Bateman equations describe the time evolution of radioactive isotopes in a decay chain. The differential equations that are taken into account for I and Xe population in this project are:
 
-1. **Equation for Iodine (I)**:
+1. **Iodine (I)**:
    
   $$ \frac{dI(t)}{dt} = \gamma_I \Sigma_f \phi - \lambda_I I(t)
   $$
 
-2. **Equation for Xenon (Xe)**:
+2. **Xenon (Xe)**:
    
   $$ \frac{dXe(t)}{dt} = \gamma_{Xe} \Sigma_f \phi + \lambda_I I(t) - \lambda_{Xe} Xe(t) - \sigma_{aXe} Xe(t) \phi
   $$
 
-where $\gamma_I$ and $\gamma_{Xe}$ are the fission yield of I and Xe, $\Sigma_f \phi$ is the fission rate, $\sigma_{aXe}$ is the microscopic absorption cross-section of Xe and $\phi$ is the neutron flux.
-The initial population of iodine $I_0$ and of xenon $Xe_0$, for reactors that have been working long enough to reach equilibrium, can be calculated through the equation since the rate of change of the two populations, $\frac{dI(t)}{dt}$ and $\frac{dXe(t)}{dt}$ are all zero. The two equations are solved after the reactor shutdown, when the neutron flux $\phi$ is zero (assumed to be zero istantaneously).
-The analytical solutions, used to check the precision of the numerial method employed, are given by: 
+where $\gamma_I$ and $\gamma_{Xe}$ are the fission yields of I and Xe, $\Sigma_f \phi$ is the fission rate, $\sigma_{aXe}$ is the microscopic absorption cross-section of Xe and $\phi$ is the neutron flux.
+The initial population of iodine $I_0$ and of xenon $Xe_0$, for reactors that have been working long enough to reach equilibrium, can be obtained from the equation since the rate of change of the two populations, $\frac{dI(t)}{dt}$ and $\frac{dXe(t)}{dt}$ are equal to zero. The two equations are solved after the reactor shutdown, when the neutron flux $\phi$ is assumed to be zero istantaneously.
+The analytical solutions, used to check the precision of the numerical method employed, are given by: 
 
 $$ I(t) = \frac{\gamma_I \Sigma_f \phi}{\lambda_I} e^{-\lambda_I t}
 $$
@@ -48,6 +35,18 @@ $$
 
 where $\nu$ is the number of neutrons released per fission.
 
+## Project Structure
+
+- **[`parameters.py`](./parameters.py)**: Defines the parameters used throughout the calculations. All the parameters are taken from [1](#references).
+- **[`bateman_eq.py`](./bateman_eq.py)**: Defines the Bateman equations, the function to compute initial conditions, and the function to compute reactor poisoning $\rho$. It contains also the analytical solution of the Bateman equations for Xe and computes the relative error of poisoning of the numerical solution with respect to the analytical one.
+- **[`runge_kutta.py`](./runge_kutta.py)**: Implements the fourth-order Runge-Kutta method for solving differential equations.
+- **[`matrix_method.py`](./matrix_method.py)**: Implements the matrix exponential method for solving differential equations.
+- **[`plot_results.py`](./plot_results.py)**: Contains functions for plotting results, including Iodine and Xenon populations, reactor poisoning, relative errors, and a 3D plot of the xenon transient surface.
+- **[`compute_solutions.py`](./compute_solutions.py)**: Compute solutions of the Bateman equations using both matrix method and Runge-Kutta method, for different neutron flux values.
+- **[`estimate_ex_time.py`](./estimate_ex_time.py)**: Contains the function that measures the execution time of a method.
+- **[`populations/`](./populations)**: Directory where I and Xe population plots are saved.
+- **[`output/`](./output)**: Directory where all other plots are saved.
+
 ## Requirements
 
 This code is written in **Python**. To run it, you'll need the following Python libraries:
@@ -60,21 +59,21 @@ This code is written in **Python**. To run it, you'll need the following Python 
 
 To run the code, you can use the provided `Makefile`. Below are the commands available and their usage:
 
--To run the main script with default parameters, use the `make run` command:
+- To run the main script with default parameters, use the `make run` command:
 
    ```bash
    make run
    ```
--To run the main script selecting manually the parameters of the simulation, use the following command:
+- To run the main script selecting manually the parameters of the simulation, use the following command:
    ```bash
    make run ARGS='--time-range <start> <end> --dt <value>'
    ```
--To measure the execution time of the two numerical methods, use the `make performance` command:
+- To measure the execution time of the two numerical methods, use the `make performance` command:
 
    ```bash
    make performance
    ```
--To see the available commands:
+- To see the available commands:
 
    ```bash
    make help
