@@ -2,19 +2,19 @@
 
 ## Overview
 
-This project implements two different numerical methods for solving the Bateman equations for Xe-135 and I-135, to calculate the Xe poisoning after the reactor shutdown. The methods implemented are the fourth-order Runge-Kutta (RK4) and matrix exponential. The project also features visualizations of the results, including I and Xe populations and poisoning. In the project it is also calculated the relative error on the poisoning of the two numerical methods with respect to analytical solution. The matrix method have more accurate solution with respect to the analytical solution, so for this method it is also produced the 3D plot of the xenon poisoning surface at different thermal neutron flux levels. The project follows what proposed in [this paper](#references).
+This project implements two different numerical methods for solving the Bateman equations for Xe-135 and I-135, to calculate the Xe poisoning after the reactor shutdown. The methods implemented are the fourth-order Runge-Kutta (RK4) and matrix exponential. The results of the project, including iodine and xenon populations as well as poisoning effects, are visualized through various plots. Additionally, the relative error in the poisoning values for both numerical methods is calculated with respect to the analytical solution. The matrix method provides a more accurate solution compared to the analytical one, and for this method, a 3D plot of the xenon poisoning surface at different thermal neutron flux levels is also produced.The project follows what proposed in [this paper](#references).
 
 ## Project Structure
 
 - **[`parameters.py`](./parameters.py)**: Defines the parameters used throughout the calculations. All the parameters are taken from [1](#references).
-- **[`bateman_eq.py`](./bateman_eq.py)**: Defines the Bateman equations, the function to calculate initial conditions, and the function to calculate reactor poisoning. Contains also the analytical solution of the Bateman equation for Xe and calculates the error on the poisoning between analytical and numerical solution.
-- **[`runge_kutta.py`](./runge_kutta.py)**: Implements the Runge-Kutta method for solving differential equations.
+- **[`bateman_eq.py`](./bateman_eq.py)**: Defines the Bateman equations, the function to calculate initial conditions, and the function to calculate reactor poisoning $\rho$ . Contains also the analytical solution of the Bateman equation for Xe and calculates the error on the poisoning between analytical and numerical solution.
+- **[`runge_kutta.py`](./runge_kutta.py)**: Implements the fourth-order Runge-Kutta method for solving differential equations.
 - **[`matrix_method.py`](./matrix_method.py)**: Implements the matrix exponential method for solving differential equations.
 - **[`plot_results.py`](./plot_results.py)**: Contains functions for plotting results, including I and Xe populations, reactor poisoning, errors with respect to the analytical solution, and a 3D plot of the xenon transient surface.
-- **[`compute_solutions.py`](./compute_solutions.py)**: Compute solutions of the Bateman equations using both matrix method and Runge-Kutta method, for different neutron flux values and calculates errors.
+- **[`compute_solutions.py`](./compute_solutions.py)**: Compute solutions of the Bateman equations using both matrix method and Runge-Kutta method, for different neutron flux values and calculates the errors.
 - **[`estimate_ex_time.py`](./estimate_ex_time.py)**: Contains a function that measures the execution time of a method.
 - **[`populations/`](./populations)**: Directory where I and Xe population plots are saved.
-- **[`output/`](./output)**: Directory where other plots are saved.
+- **[`output/`](./output)**: Directory where all the other plots are saved.
 
 
 ## Bateman Equations
@@ -38,7 +38,7 @@ The analytical solutions, used to check the precision of the numerial method emp
 $$ I(t) = \frac{\gamma_I \Sigma_f \phi}{\lambda_I} e^{-\lambda_I t}
 $$
 
-$$ X(t) = \Sigma_f \phi \left[ \left( \frac{\gamma_I + \gamma_X}{\lambda_X + \sigma_{aX} \phi} e^{-\lambda_X t} \right) + \frac{\gamma_I}{\lambda_I - \lambda_X} \left( e^{-\lambda_X t} - e^{-\lambda_I t} \right) \right]
+$$ Xe(t) = \Sigma_f \phi \left[ \left( \frac{\gamma_I + \gamma_{Xe}}{\lambda_{Xe} + \sigma_{aXe} \phi} e^{-\lambda_{Xe} t} \right) + \frac{\gamma_I}{\lambda_I - \lambda_{Xe}} \left( e^{-\lambda_{Xe} t} - e^{-\lambda_I t} \right) \right]
 $$
 
 The poisoning is calculated using the formula:
